@@ -1,20 +1,20 @@
-  SSSSSSSSSS SSSSSSSSSS SSSSSSSSSS SSS    SSS SSSSSSSSSS SSS    SSS
-  SSSSSSSSSS SSSSSSSSSS SSSSSSSSSS SSS    SSS SSSSSSSSSS SSS    SSS
-  SSSSSSSSSS SSSSSSSSSS SSSSSSSSSS SSS    SSS SSSSSSSSSS SSSS   SSS
-  SSSSS      SSSS       SSS    SSS SSS    SSS    SSSS    SSSSS  SSS
-  SSSSS      SSSS       SSS    SSS SSS    SSS    SSSS    SSSSSS SSS
-  SSSSSSSSSS SSSSSSS    SSS    SSS SSS    SSS    SSSS    SSSSSSSSSS
-  SSSSSSSSSS SSSSSSS    SSS    SSS SSS    SSS    SSSS    SSSSSSSSSS
-       SSSSS SSSS       SSS SSSS:S SSS    SSS    SSSS    SSS SSSSSS
-       SSSSS SSSS       SSS  SSSS: SSS    SSS    SSSS    SSS  SSSSS
-  SSSSSSSSSS SSSSSSSSSS SSSSSSSSSS SSSSSSSSSS SSSSSSSSSS SSS   SSSS
-  SSSSSSSSSS SSSSSSSSSS SSSSSSSSSS SSSSSSSSSS SSSSSSSSSS SSS    SSS
-  SSSSSSSSSS SSSSSSSSSS SSSSSSS:SS SSSSSSSSSS SSSSSSSSSS SSS    SSS
+ SSSSSSSSSS SSSSSSSSSS SSSSSSSSSS SSS    SSS SSSSSSSSSS SSS    SSS
+ SSSSSSSSSS SSSSSSSSSS SSSSSSSSSS SSS    SSS SSSSSSSSSS SSS    SSS
+ SSSSSSSSSS SSSSSSSSSS SSSSSSSSSS SSS    SSS SSSSSSSSSS SSSS   SSS
+ SSSSS      SSSS       SSS    SSS SSS    SSS    SSSS    SSSSS  SSS
+ SSSSS      SSSS       SSS    SSS SSS    SSS    SSSS    SSSSSS SSS
+ SSSSSSSSSS SSSSSSS    SSS    SSS SSS    SSS    SSSS    SSSSSSSSSS
+ SSSSSSSSSS SSSSSSS    SSS     SS SSS    SSS    SSSS    SSSSSSSSSS
+      SSSSS SSSS       SSS SSSS S SSS    SSS    SSSS    SSS SSSSSS
+      SSSSS SSSS       SSS  SSSS  SSS    SSS    SSSS    SSS  SSSSS
+ SSSSSSSSSS SSSSSSSSSS SSSSS SSSS SSSSSSSSSS SSSSSSSSSS SSS   SSSS
+ SSSSSSSSSS SSSSSSSSSS SSSSSS SSS SSSSSSSSSS SSSSSSSSSS SSS    SSS
+ SSSSSSSSSS SSSSSSSSSS SSSSSSS SS SSSSSSSSSS SSSSSSSSSS SSS    SSS
 
-   [S]earch   [E]ngine   [Q]uery   [U]rl   [I]nformation   [N]oter
-                 Version 0.1 by Peter Sergeant
+  [S]earch   [E]ngine   [Q]uery   [U]rl   [I]nformation   [N]oter
+              Version 0.2 by Peter Sergeant (15-2-00)
 
-Legal# Copyright (C) 2000 Peter Sergeant
+Legal# Copyright (C) 2000 Peter Sergeant (sargie@hotmail.com)
 Legal# This program is free software; you can redistribute it and/or
 Legal# modify it under the terms of the GNU General Public License as
 Legal# published by the Free Software Foundation; either version 2 of
@@ -28,57 +28,83 @@ Legal# License along with this program; if not, write to the Free
 Legal# Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 Legal# MA 02111-1307 USA
 
- Included with in this package:
- -> Sequin.pm			The module itself
- -> Readme.txt			This File
- -> License.txt		GNU General Public License
- -> Example.pl			A very simple example file
+Included with in this package:
+-> Sequin.pm			The module itself
+-> Readme.txt			This File
+-> License.txt			GNU General Public License
+-> Example.pl			A very simple example file
 
- To install:
- Simply place this file in Perl's lib/URI/ or lib/site/URI folder.
+Email: sargie@hotmail.com
+ HTTP: http://badassscripts.hypermart.net/sequin
 
- This module is, as of this release,  in its *very* early stages. This
- release in  fact is  mainly just  so people  can have  a look  at the
- module,  point out  any bugs  that they  can see  already and prehaps
- offer help...
+So, we're on Version 0.2 already. A day after the first version was
+released. I'm happy to say that this version is a *HUGE* improvement
+on the last...
 
- The module  started its  life as a CGI script, that was full of bugs,
- and was one of my first Perl programs. I would like to think that the
- quality of the scripting has improved somewhat since then.
+So, what's new? The whole module has been fundamentally rewritten.
+Gone is the obsolete and limited database that the last program took
+its information from and in is an intelligent guessing device, that
+takes a guess at the search terms and the search engine. It has been
+tested on, and works on:
 
- In it's present state,  the main subroutine accepts an URL, which and
- tries to determine if this  URL is that of a Search-Engine query.  If
- it is,  it will decide which search terms were used,  and return both
- the name of the search engine, and the keywords used.
+	* Altavista		(www.av.com)
+	* Ask Jeeves		(www.aj.com)
+	* Excite		(www.excite.com)
+	* Google		(www.google.com)
+	* Hotbot		(www.hotbot.com)
+	* Infoseek		(www.infoseek.com)
+	* Lycos			(www.lycos.com)
+	* Magellan		(magellan.excite.com)
+	* Mamma			(www.mamma.com)
+	* Webcrawler		(www.webcrawler.com)
+	* Yahoo			(www.yahoo.com)
+	
+If anyone finds a search engine it doesn't work on, please email me
+ASAP so that I can make necessary changes in the next release...
 
- Of course,  there are many plans for the future of it, and as, at the
- time  of  writing  (14-2-00)  I'm  ill,  this  version  may  never be
- released, and some of the features I hope to include will be included
- in the real first version.  Who knows?  Following is a list of future
- releases, and what I hope to include in them...
+How does it work? When it's passed an URL, it takes the QUERY_STRING
+used, if one is used in the URL, and attempts to find out the search
+terms from it. If it can, it returns the search terms and the base
+url of the search engine in a reference to an hash containing the
+information.
 
-  (0.1) - That which you have now
-  (0.2) - Inclusion of about 20 new search engines
-  (0.3) - Gives approximate ranking of URL on the search engine
-  (0.4) - Will give exact ranking of URL on the search engine
-  (0.5) - Gives information about other sites listed near URL
-  (+++) - Maybe Re-register the URL or process whole log file
+Installation is pretty easy. Simply copy 'sequin.pm' to the URI
+folder in your library. On the Win32 machine that I'm being forced to
+write this on, this is in /lib/site/URI. It may be different on
+other platforms. On a linux machine I suggest you try 'locate URI/'.
 
- Presently, usage of the module is very easy. The example below should
- answer all questions... Failing that, or if you'd like help, I can be
- reached on sargie@hotmail.com,  and the script's home can be found at
- http://badassscripts.hypermart.net/sequin/
+How do you use it? As anyone on EFNET #Perl can tell you, I'm a true
+KLB (Known Lazy Bastard), so I'll let you work it out, but give you
+the clue that example.pl should contain sufficient information to
+show you how to get it working, and should allow you to check that
+it's installed properly.
 
- Example Script:
- EXAMPLE# #!/usr/bin/perl
- EXAMPLE# use URI::Sequin;
- EXAMPLE# @engines = qw(
- EXAMPLE# 	http://search.excite.com/search.gw?search=cats+and+dogs
- EXAMPLE# 	http://search.yahoo.com/bin/search?p=cats+and+dogs
- EXAMPLE# 	http://www.google.com/search?q=cats+and+dogs
- EXAMPLE# );
- EXAMPLE#
- EXAMPLE# foreach $engine (@engines) {
- EXAMPLE# 	print %{&parse_url($engine)}->{'engine'} . "\n";
- EXAMPLE# 	print %{&parse_url($engine)}->{'terms'} . "\n";
- EXAMPLE# }
+If you want to use Sequin in a CGI script, that you're either going
+to distribute or sell, you are able to simply lift the main
+subroutine from the module, and put it at the bottom of your script.
+However, there are three conditions for doing this. Firstly, you ask
+my permission. I will almost without exception say yes, so email me
+at 'sargie@hotmail.com'. I should reply within about 24 hours.
+Secondly, a sentence giving me credit for the subroutine *IS*
+not only required under the license, but is common courtesy. Finally,
+I'd like a copy of the script it's used in. I understand this may not
+be possible in all cases, but I'd like to know why not if not.
+
+If, you're going to use the module purely for personal use, I'd be
+fascinated to see where you're using it and how you're using it, but,
+you're not forced to tell me or show me.
+
+So what's going to change in the near future with this module? Here's
+a list of what to expect in future versions, which I will probably
+release every week to a fortnight, depending on how much longer I'm
+ill and stuck at home, and the volume of school work when I return to
+school...
+
+(0.2) - That which you have now...
+(0.3) - Gives approximate ranking of URL on the search engine
+(0.4) - Will contain a database of search engine information
+(0.5) - Will determine ranking on some search engines
+
+
+Stay happy,
+Peter Sergeant

@@ -1,31 +1,52 @@
 package URI::Sequin;
-$VERSION = 0.1;
-require 5.000;
-require Exporter;
-@ISA = qw(Exporter);
-@EXPORT = qw(parse_url);
-use strict;
 
-#######################################################################
-sub parse_url {
-	my $fkw;			# Found Key Words
-	my $fse;			# Found Search Engine
-	my $rur = $_[0];		# Raw URL
-	my %rhv;			# Return Hash
-	if ($rur =~ m/^[http:\/\/]?([^\.])+\.altavista/) { if ($rur =~ m/[\&\?]q=([^\&\b]+)/i) {  $fse = "Altavista";  $fkw = $1; } }
-	if ($rur =~ m/^[http:\/\/]?([^\.])+\.excite/) { if ($rur =~ m/[\&\?]search=([^\&\b]+)/i) {  $fse = "Excite";  $fkw = $1; } }
-	if ($rur =~ m/^[http:\/\/]?([^\.])+\.google/) {if ($rur =~ m/[\&\?]q=([^\&\b]+)/i) {  $fse = "Google";  $fkw = $1; } 	}
-	if ($rur =~ m/^[http:\/\/]?([^\.])+\.webcrawler/) {if ($rur =~ m/[\&\?]searchText=([^\&\b]+)/i) {  $fse = "WebCrawler";  $fkw = $1; } }
-	if ($rur =~ m/^[http:\/\/]?([^\.])+\.yahoo/) {if ($rur =~ m/[\&\?]p=([^\&\b]+)/i) {  $fse = "Yahoo";  $fkw = $1; } 	}
-	if ($rur =~ m/^[http:\/\/]?([^\.])+hotbot\.lycos/) {if ($rur =~ m/[\&\?]MT=([^\&\b]+)/i) {  $fse = "HotBot";  $fkw = $1; } }
-	if ($rur =~ m/^[http:\/\/]?([^\.])+infoseek\.go/) {if ($rur =~ m/[\&\?]qt=([^\&\b]+)/i) {  $fse = "InfoSeek";  $fkw = $1; } }
-	if ($rur =~ m/^[http:\/\/]?([^\.])+magellan\.excite/) {if ($rur =~ m/[\&\?]search=([^\&\b]+)/i) {  $fse = "Magellan";  $fkw = $1; } }
-	if ($rur =~ m/^[http:\/\/]?([^\.])+www\.lycos/) {if ($rur =~ m/[\&\?]query=([^\&\b]+)/i) {  $fse = "Lycos";  $fkw = $1; } }
-	unless ($fse) { return 0; }
-	$fkw =~ tr/+/ /; $fkw =~ s/%([a-fA-F0-9][a-fA-F0-9])/pack("C", hex($1))/eg;
-	$fkw =~ s/^(\s+)//; $fkw =~ s/(\s+)$//;
-	$fkw =~ tr/+/ /; $rhv{'engine'} = $fse;
-	$rhv{'terms'} = $fkw;
-	return \%rhv;
-}
+use strict;
+use vars qw($VERSION @ISA @EXPORT @EXPORT_OK);
+
+require Exporter;
+require AutoLoader;
+
+@ISA = qw(Exporter AutoLoader);
+# Items to export into callers namespace by default. Note: do not export
+# names by default without a very good reason. Use EXPORT_OK instead.
+# Do not simply export all your public functions/methods/constants.
+@EXPORT = qw(
+	
+);
+$VERSION = '0.01';
+
+
+# Preloaded methods go here.
+
+# Autoload methods go after =cut, and are processed by the autosplit program.
+
 1;
+__END__
+# Below is the stub of documentation for your module. You better edit it!
+
+=head1 NAME
+
+URI::Sequin - Perl extension for blah blah blah
+
+=head1 SYNOPSIS
+
+  use URI::Sequin;
+  blah blah blah
+
+=head1 DESCRIPTION
+
+Stub documentation for URI::Sequin was created by h2xs. It looks like the
+author of the extension was negligent enough to leave the stub
+unedited.
+
+Blah blah blah.
+
+=head1 AUTHOR
+
+A. U. Thor, a.u.thor@a.galaxy.far.far.away
+
+=head1 SEE ALSO
+
+perl(1).
+
+=cut
