@@ -12,7 +12,41 @@
  SSSSSSSSSS SSSSSSSSSS SSSSSSS SS SSSSSSSSSS SSSSSSSSSS SSS    SSS
 
   [S]earch   [E]ngine   [Q]uery   [U]rl   [I]nformation   [N]oter
-              Version 0.4 by Peter Sergeant (11-12-00)
+           Version 1.0 by Peter Sergeant (24-02-01)
+
+
+
+SEQUIN is intended to extract the keywords used and the name of a
+search engine given the a line from a logfile that contains a
+referal URL from a Search Engine which GETs its data.
+
+Unlike traditional applications for doing this, it does not rely
+on a preset list of search engines and thus currently works with
+almost every search engine URL the author could get his hands on
+
+Comments are appreciated - if you find a search engine with which
+it does not work, I would be truly fascinated. Stay happy and 
+keep drinking coffee.
+
+Included:
+=-=-=-=-=
+	README           - This file
+	CHANGES          - List of changes through revisions
+	LICENSE	         - A copy of the GPL
+	MANIFEST         - A list of what's included to keep MAKE happy
+	Sequin.pm  	 - The module itselfy
+	Example.pl 	 - Some working code to play with
+	Makefile.pl      - What we make the makefile with
+	Test.pl		 - A test file to keep MAKE happy
+	referer_log1.txt - Some sample URLs to play with
+	referer_log2.txt - Some logfile lines to play with
+
+I seem to remember in my Windows days becoming very upset that I
+could never install modules easily, due to a lack to a decent
+make program. To install this module is easy on Windows. Go to
+lib/URI or /lib/site/URI or site/lib/URI (any will do, just find
+one that exists) and copy the Sequin.pm file over.
+
 
 Legal# Copyright (C) 2000 Peter Sergeant (pete_sergeant@hotmail.com)
 Legal# This program is free software; you can redistribute it and/or

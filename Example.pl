@@ -26,7 +26,7 @@ while(<URLS>) {
 	if ($key_phrase) {
 
 		my ($se_name, $se_url) = @{&se_extract($url)};
-		print "$se_name\n$se_url\n" . &key_extract($url) . "\n\n";
+		print "$se_name\n$se_url\n" . &key_extract($url) . "\n$url\n\n";
 
 	}
 

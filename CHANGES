@@ -1,5 +1,18 @@
 Revision history for Perl extension URI::Sequin.
 
+1.0   Sat Feb 24 00:00:00 2001
+	- Fixed POD
+	- Fixed some of the package arguments
+	- Improved Regex checker
+
+0.9   Fri Feb 23 00:00:00 2001
+	- Changed versions
+	- Improved Documentation
+	- Improved name matching to deal with some more wierd names
+	- Improved the keyword matching to deal with yet more 
+		search engines, and also documented which search
+		engines use which keywords
+
 0.4   Mon Dec 11 10:10:00 2000
 	- Complete rewrite
 	- Broke the module down into 3 subs

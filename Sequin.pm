@@ -1,22 +1,22 @@
-
-# Sequin v0.4
+# Sequin v1.0
 
 # by Peter Sergeant <pete_sergeant@hotmail.com>
 
 # Magic Package Stuff
+
+
+require 5;
 package URI::Sequin;
-$VERSION = 0.4;
-require 5.004;
+use strict;
 require Exporter;
+use vars qw(@ISA $VERSION @EXPORT_OK %log_types);
 @ISA = qw(Exporter);
 @EXPORT_OK = qw(se_extract log_extract %log_types key_extract);
-
-# Some declarations
-use vars qw(%log_types);
-use strict;
+$VERSION = 1.0;
 
 
-# &log_extract v0.1
+
+# &log_extract v1.0
 # =-=-=-=-=-=- =-=-
 #
 # The purpose of this subroutine is to allow raw log files lines to be
@@ -40,7 +40,7 @@ use strict;
 #	> of this, you should make sure the part of string to be taken
 #	> is enclosed in ()'s. If you're still unsure, this is clearly
 #	> demonstrated below, where %log_types is set.
-# I
+# 
 # Parsing a Log Entry
 # => $referrer = &log_extract($log_line, 'NCSA');
 #
@@ -56,7 +56,7 @@ use strict;
 	'IIS1'		=>	'(http\:.+?),',
 
 # Microsoft IIS4.0 (W3SVC format)
-	'IIS2'		=>	'(http\:.+?)$',
+	'IIS2'		=>	'(http\:.+?)$', #'
 
 # NCSA (Apache, Netscape)
 	'NCSA'		=>	'"(http:.+?)"',
@@ -82,11 +82,8 @@ sub log_extract {
 	# (eval) on it to see if we crash the regex engine, and by also
 	# checking if there is a regex in $log_types{$log_file_type}
 
-	unless (( eval {"" =~ /$log_types{$log_file_type}/; 1 } )&&
-		(exists $log_types{$log_file_type})) {
-			die "$log_file_type contains a bad regex:
-			     $log_types{$log_file_type}";
-	}
+	my $re = eval { qr/$log_types{$log_file_type}/ };
+	warn "Bad re: '$log_types{$log_file_type}' ($@)\n" if $@;
 
 	# Return what we found
 
@@ -100,7 +97,7 @@ sub log_extract {
 
 
 
-# &se_extract v0.1
+# &se_extract v1.0
 # =-=-=-=-=-= =-=-
 #
 # The purpose of this subroutine is to break down the referring URL in
@@ -139,8 +136,16 @@ sub se_extract {
 				(?:\/|\:)
 			)/x) {
 		$search_engine_url	= $1;
-		$search_engine_name	= "\u$2";
+	 	$search_engine_name	= "\u$2";
+
+	} elsif ($location =~ m/^(http:\/\/)?((\w+)\.\w+)/){
+  		$search_engine_url	= $2;
+		$search_engine_name	= "\u$3";
+	} elsif ($location =~ m/^(http:\/\/)?(\w+)[^\.\w]/) {
+	  	$search_engine_url 	= $2;
+	        $search_engine_name	= "\u$2";
 	}
+
 
 	# This has allowed us to quite accurately get the name and URL
 	# of any given search-engine. However, in the interests of
@@ -185,7 +190,7 @@ sub se_extract {
 }
 
 
-# &key_extract v0.1
+# &key_extract v1.0
 # =-=-=-=-=-= =-=-
 #
 # The purpose of this subroutine is to break down the referring URL in
@@ -255,32 +260,38 @@ sub key_extract {
 	#     wrong prefixed is being used, please email me and tell me
 	#     at pete_sergeant@hotmail.com
 
+
 	my @prefix_array = (
 
-		'.\w?query.\w?',
+		'.\w?query.\w?',   # CNET Search, Netscape
 		'.\w?search.\w?',
 		'.\w?term.\w?',
-		'ask',
+		'ask',             # Ask Jeeves
 		'.\w?key.\w?',
 		'palabras',
 		'DTqb1',
 		'request',
-		'rn',
-		'mt',
-		'qt',
+		'keyword',  # Snap
+		'general',  # MetaCrawler, Go2Net
+		'key',      # Looksmart
+                'rn',
+		'mt',  # MSN, HotBot
+		'qt',  # Go, Infoseek
 		'oq',
-		's',
-		'q',
-		'p',
+		'dom', # Domainsurfer
+	        's',   # Excite
+		'q',   # Altavista, Google, Dogpile, Evreka, Metafind
+		'p',   # Yahoo
 		't',
 		'qry',
 		'qu',
-		'kw',
+		'kw',  # Sapo
 		'B1',
 		'general',
-		'sc',
+		'sc',  # Gohip
 		'szukaj',
 		'PA',
+	      	'cat'  # Dmoz
 
 	);
 
@@ -327,11 +338,14 @@ sub key_extract {
 
 	return;
 }
+
 1;
+
+__END__
 
 =head1 NAME
 
-	URI::Sequin - Extract information from the URLs of Search-Engines
+URI::Sequin - Extract information from the URLs of Search-Engines
 
 =head1 SYNOPSIS
 
@@ -360,9 +374,9 @@ module are:
 
 =over
 
-=item log_extract($log_line, ‘Type’)
+=item log_extract($log_line, 'Type')
 
-This will pick out the referring URL from a line of a logfile. The ‘type’ can
+This will pick out the referring URL from a line of a logfile. The 'type' can
 be one of the built in types or can be a user-created one. For more
 information, see %log_types below. This subroutine accepts a scalar, and
 returns a scalar.
@@ -409,7 +423,7 @@ Peter Sergeant E<lt>pete_sergeant@hotmail.comE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2000 Peter Sergeant.
+Copyright 2001 Peter Sergeant.
 
 This program is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself.

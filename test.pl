@@ -16,4 +16,4 @@ $engine = "http://www.google.com/search?q=ok+3";
 $blah = &key_extract($engine);
 if ($blah) { print "$blah\n"; } else { print "not ok 2\n"; }
 
-print "You should have just seen: ok 1, ok 2, ok 3.";
+print "You should have just seen: ok 1, ok 2, ok 3.\n";
