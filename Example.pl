@@ -1,31 +1,35 @@
 #!/usr/bin/perl
-use URI::Sequin;
 
-print "Short Demonstration of the powers of Sequin\n";
-print "----- ------------- -- ---------- -- ------\n\n";
+# Sequin Example Script
 
+# Load Sequin
+use URI::Sequin qw/se_extract key_extract log_extract %log_types/;
+use strict;
 
-print "Example 1: A URL that contains multiple keywords:\n";
-print "http://search.excite.com/search.gw?search=cats+and+dogs\n";
-$engine = "http://search.excite.com/search.gw?search=cats+and+dogs";
-print %{&parse_url($engine)}->{'engine'} . " - ";
-print %{&parse_url($engine)}->{'terms'} . "\n\n";
+# Define Log-Type
+$log_types{'New'} = '^(.+) ->';
 
 
-print "Example 2: Using the Real-Name Function:\n";
-print "http://www.aj.com/main/askjeeves.asp?ask=cat&origin=&site_name=Jeeves&x=14&y=11\n";
-$engine = "http://www.aj.com/main/askjeeves.asp?ask=cat&origin=&site_name=Jeeves&metasearch=yes&x=14&y=11\n";
-print %{&parse_url($engine)}->{'rname'} . " - ";
-print %{&parse_url($engine)}->{'url'} . "\n\n";
+open(URLS, "<./referer_log2.txt")||die;
 
+while(<URLS>) {
 
-print "Example 3: Approximate Position Guessing:\n";
-print "http://search.excite.com/search.gw?c=web&s=Perl&start=20&perPage=10\n";
-$engine = "http://search.excite.com/search.gw?c=web&s=Perl&start=20&perPage=10\n";
-print %{&parse_url($engine)}->{'terms'} . " - ";
-print %{&parse_url($engine)}->{'apos'} . "\n\n";
+	# Get the referring URL
+	my $url = &log_extract($_, 'New');
 
+	# Get keywords
+	my $key_phrase = &key_extract($url);
 
+	# If there were keywords, get the search engine name and URL
+	# and print out a copy.
 
+	if ($key_phrase) {
 
+		my ($se_name, $se_url) = @{&se_extract($url)};
+		print "$se_name\n$se_url\n" . &key_extract($url) . "\n\n";
 
+	}
+
+}
+
+close URLS;
