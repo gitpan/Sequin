@@ -18,3 +18,8 @@ print "ok 1\n";
 # (correspondingly "not ok 13") depending on the success of chunk 13
 # of the test code):
 
+   use URI::Sequin;
+   $engine = "http://www.google.com/search?q=ok+it+works";
+   $blah = %{&parse_url($engine)}->{'terms'};
+   unless ($blah) { print "Not Okay, at all, ignore further statements"; }
+   print $blah;

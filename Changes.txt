@@ -3,3 +3,5 @@ Revision history for Perl extension URI::Sequin.
 0.2   Tue Feb 15 15:24:43 2000
 	- Complete Rewrite; created by h2xs 1.19
 
+0.1   Mon Feb 14 12:00:00 2000
+	- Original Version now obsolete;

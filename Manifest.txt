@@ -3,3 +3,6 @@ Makefile.PL
 MANIFEST
 Sequin.pm
 test.pl
+Example.pl
+License.txt
+Readme.txt
