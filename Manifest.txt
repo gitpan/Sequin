@@ -1,8 +1,9 @@
-Changes
-Makefile.PL
-MANIFEST
-Sequin.pm
-test.pl
+Changes.txt
 Example.pl
 License.txt
+Makefile.PL
+Manifest.txt
 Readme.txt
+Sequin.html
+Sequin.pm
+Test.pl

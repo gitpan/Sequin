@@ -1,0 +1,114 @@
+<HTML>
+<HEAD>
+<TITLE>URI::Sequin - Extracts useful information from Search Engine URLs</TITLE>
+<LINK REV="made" HREF="mailto:">
+</HEAD>
+
+<BODY>
+
+<!-- INDEX BEGIN -->
+
+<UL>
+
+	<LI><A HREF="#NAME">NAME</A>
+	<LI><A HREF="#SYNOPSIS">SYNOPSIS</A>
+	<LI><A HREF="#DESCRIPTION">DESCRIPTION</A>
+	<LI><A HREF="#LIMITATIONS">LIMITATIONS</A>
+	<LI><A HREF="#AUTHOR">AUTHOR</A>
+	<LI><A HREF="#SEE_ALSO">SEE ALSO</A>
+	<LI><A HREF="#VERSION">VERSION</A>
+</UL>
+<!-- INDEX END -->
+
+<HR>
+<P>
+<H1><A NAME="NAME">NAME</A></H1>
+<P>
+URI::Sequin - Extracts useful information from Search Engine URLs
+
+<P>
+<HR>
+<H1><A NAME="SYNOPSIS">SYNOPSIS</A></H1>
+<P>
+<PRE>        use URI::Sequin;
+   
+        $engine = &quot;<A HREF="http://www.google.com/search?q=Perl&amp">http://www.google.com/search?q=Perl&amp</A>;start=10&amp;sa=N&quot;;
+        $temp = parse_url($engine);
+        print %$temp-&gt;{'engine'} . &quot;\n&quot;;        # The base URL of the search engine
+        print %$temp-&gt;{'apos'} . &quot;\n&quot;;          # The Approximate Ranking
+        print %$temp-&gt;{'terms'} . &quot;\n&quot;;         # The search terms used
+        print %$temp-&gt;{'rname'} . &quot;\n&quot;;         # The Real Name of the search engine
+                                                # if in database
+        print %$temp-&gt;{'url'} . &quot;\n&quot;;           # The Real URL of the search engine
+                                                # if in database
+</PRE>
+<P>
+<HR>
+<H1><A NAME="DESCRIPTION">DESCRIPTION</A></H1>
+<P>
+Sequin is designed to parse the refering URLs that show up in your log from
+visitors having come from search engines. It tries to determine: search
+terms, the approximate location of your site in the search engine listing,
+the proper name of the search engine, and the URL of the search engine.
+With the following search engines it succeeds:
+
+<P>
+<PRE>        * Altavista             (www.av.com)
+        * Ask Jeeves            (www.aj.com)
+        * Excite                (www.excite.com)
+        * Google                (www.google.com)
+        * Hotbot                (www.hotbot.com)
+        * Infoseek              (www.infoseek.com)
+        * Lycos                 (www.lycos.com)
+        * Magellan              (magellan.excite.com)
+        * Mamma                 (www.mamma.com)
+        * Webcrawler            (www.webcrawler.com)
+        * Yahoo                 (www.yahoo.com)
+        
+I'd hope and imagine that it'll work on most search engines, but if you find one that it doesn't work on, please email me (address below) and tell me as soon as possible.
+</PRE>
+<P>
+<HR>
+<H1><A NAME="LIMITATIONS">LIMITATIONS</A></H1>
+<P>
+As it's trying to guess the relevant information, sometimes the script will
+fail. However, a few things should be said so that you don't think it's
+failing when in fact it's doing what it should be... Firstly, The
+approximate positioner is a *very* approximate position. As a general rule,
+if it has worked properly, it will show you a number, either ending in 1 or
+0. The position of your site should this number, or up to nine above it.
+For example, if it returns the number 20, your site is probably ranked
+between 20 and 29. If it shows 1, your site is likely to be ranked between
+1 and 9. Secondly, the Real Name function will not tell you about regional
+sites. Therefore, yahoo.co.uk will show up as Yahoo. This is why the
+'engine' field is returned, because that will, in the above example, return
+'search.yahoo.co.uk'. Finally, in the case of HotBot's refereral URL's, and
+in any other like it, it subdivides a field, (eg: search=MT=perl.com). In
+this case, all the search term is returned (MT=Perl).
+
+<P>
+<HR>
+<H1><A NAME="AUTHOR">AUTHOR</A></H1>
+<P>
+Written by Peter Sergeant (<A
+HREF="mailto:sargie@hotmail.com">sargie@hotmail.com</A>)
+
+<P>
+<HR>
+<H1><A NAME="SEE_ALSO">SEE ALSO</A></H1>
+<P>
+The readme.txt provides information about using this module in your
+scripts, if you intend to sell them or distribute them. It's worth reading,
+IMHO. If you're confused by referencing (i.e. what the hell does
+%$temp-&gt;{'engine'} mean?) then it's suggested that you look at perlref
+in the manual.
+
+<P>
+<HR>
+<H1><A NAME="VERSION">VERSION</A></H1>
+<P>
+Version 0.3 17 Feb 19100
+
+</BODY>
+
+</HTML>
